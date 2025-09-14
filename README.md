@@ -343,9 +343,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Varun Kumar**
+**Varun Kumar Thakur**
 - GitHub: [@varunkumarcs22055](https://github.com/varunkumarcs22055)
-- Email: varunkumarcs22055@gmail.com
+- Email: varunkumart.cse22@sbjit.edu.in
 
 ## 🙏 Acknowledgments
 
