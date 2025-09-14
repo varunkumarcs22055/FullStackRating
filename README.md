@@ -1,419 +1,360 @@
-# Fullstack Authentication Application
+# 🏪 Full-Stack Authentication & Store Rating System
 
-This project is a full-stack application that implements user authentication and role management using Express.js for the backend and React.js for the frontend. It utilizes PostgreSQL or MySQL as the database for storing user information.
+A comprehensive full-stack application featuring user authentication, individual store ownership, and rating management system built with Node.js/Express backend and React frontend.
 
-## Features
+![Full-Stack Application](https://img.shields.io/badge/Full--Stack-Application-blue) ![Node.js](https://img.shields.io/badge/Node.js-Express-green) ![React](https://img.shields.io/badge/React-Frontend-blue) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 
-- User signup and login functionality
-- JWT-based authentication
-- Role management for users
-- Input validation for user data
+## 🌟 Features
 
-## Technologies Used
+### 🔐 Authentication System
+- **JWT-based Authentication** with secure token management
+- **Role-based Access Control** (Admin, Store Owners, Users)
+- **Password Hashing** with bcrypt security
+- **Individual Store Ownership** - Each store has its dedicated owner
 
-- **Backend**: 
-  - Node.js
-  - Express.js
-  - PostgreSQL/MySQL
-  - JWT for authentication
-- **Frontend**: 
-  - React.js
-  - Axios for API calls
+### 🏬 Store Management
+- **13 Individual Store Owners** with unique credentials
+- **Dedicated Store Dashboards** for each owner
+- **Store Information Management** (name, email, address)
+- **Individual Store Isolation** - owners see only their store
 
-## Project Structure
+### ⭐ Rating System
+- **Store Rating & Reviews** functionality
+- **Average Rating Calculation** display
+- **Customer Feedback Management**
+- **Rating History** for store owners
 
-```
-fullstack-auth-app
-├── backend
-│   ├── src
-│   │   ├── app.js
-│   │   ├── config
-│   │   │   └── database.js
-│   │   ├── controllers
-│   │   │   ├── authController.js
-│   │   │   └── userController.js
-│   │   ├── middleware
-│   │   │   └── authMiddleware.js
-│   │   ├── models
-│   │   │   └── User.js
-│   │   ├── routes
-│   │   │   ├── auth.js
-│   │   │   └── users.js
-│   │   └── utils
-│   │       └── validation.js
-│   ├── package.json
-│   └── .env
-├── frontend
-│   ├── public
-│   │   └── index.html
-│   ├── src
-│   │   ├── components
-│   │   │   ├── Login.js
-│   │   │   ├── Signup.js
-│   │   │   └── Dashboard.js
-│   │   ├── services
-│   │   │   └── authService.js
-│   │   ├── utils
-│   │   │   └── api.js
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-└── # Fullstack Authentication App
+### 🎨 User Interface
+- **Comprehensive Login Interface** showing all users
+- **Quick-Login Buttons** for easy testing
+- **Role-specific Dashboards** (Admin, Store Owner, User)
+- **Responsive Design** for all devices
 
-A complete fullstack authentication system with role-based access control built with Express.js, PostgreSQL, and React.js.
+## 🛠 Tech Stack
 
-## 🚀 Features
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web framework
+- **PostgreSQL** - Primary database
+- **JWT** - Authentication tokens
+- **bcrypt** - Password hashing
+- **cors** - Cross-origin resource sharing
 
-### Backend Features
-- **JWT Authentication** - Secure token-based authentication
-- **Password Hashing** - Secure password storage using bcryptjs
-- **Role-Based Access Control** - Three user roles: `user`, `store_owner`, `admin`
-- **Input Validation** - Comprehensive validation using Joi
-- **Database Integration** - PostgreSQL with connection pooling
-- **Error Handling** - Structured error responses
-- **CORS Configuration** - Secure cross-origin requests
-
-### Frontend Features
-- **Login/Signup Forms** - Beautiful, responsive forms with validation
-- **Role-Based Dashboards** - Different dashboards for each user type
-- **Protected Routes** - Automatic redirects based on authentication status
-- **Local Storage Management** - Secure token storage and management
-- **Form Validation** - Client-side validation with user feedback
-- **Responsive Design** - Mobile-friendly interface
-
-### User Roles
-1. **User** - Can rate stores and browse restaurants
-2. **Store Owner** - Can manage their store and handle orders
-3. **Admin** - Can manage all users and approve stores
+### Frontend
+- **React** - UI framework
+- **CSS3** - Styling
+- **Fetch API** - HTTP requests
+- **Local Storage** - Token management
 
 ## 📋 Prerequisites
 
-- Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
-- npm or yarn
+Before you begin, ensure you have the following installed:
 
-## 🛠️ Installation
+- **Node.js** (v14 or higher) - [Download](https://nodejs.org/)
+- **PostgreSQL** (v12 or higher) - [Download](https://www.postgresql.org/download/)
+- **Git** - [Download](https://git-scm.com/)
+- **Code Editor** (VS Code recommended)
+
+## 🚀 Installation & Setup
 
 ### 1. Clone the Repository
+
 ```bash
-git clone <repository-url>
-cd fullstack-auth-app
+git clone https://github.com/varunkumarcs22055/FullStackRating.git
+cd FullStackRating
 ```
 
-### 2. Backend Setup
+### 2. PostgreSQL Database Setup
+
+#### Option A: Install PostgreSQL Locally
+
+1. **Download and Install PostgreSQL:**
+   - Visit [PostgreSQL Downloads](https://www.postgresql.org/download/)
+   - Install for your operating system
+   - Remember the password you set for the `postgres` user
+
+2. **Create Database:**
+   ```sql
+   -- Connect to PostgreSQL (using pgAdmin or command line)
+   psql -U postgres
+   
+   -- Create database
+   CREATE DATABASE fullstack_auth;
+   
+   -- Exit PostgreSQL
+   \q
+   ```
+
+#### Option B: Use PostgreSQL with Docker
 
 ```bash
+# Pull and run PostgreSQL container
+docker run --name postgres-db -e POSTGRES_PASSWORD=yourpassword -e POSTGRES_DB=fullstack_auth -p 5432:5432 -d postgres:13
+
+# Connect to container
+docker exec -it postgres-db psql -U postgres -d fullstack_auth
+```
+
+### 3. Backend Setup
+
+```bash
+# Navigate to backend directory
 cd backend
+
+# Install dependencies
 npm install
+
+# Create environment file
+# Copy and paste this into .env file:
 ```
 
-Create a `.env` file in the backend directory:
+Create `backend/.env` file:
 ```env
 # Database Configuration
 DB_HOST=localhost
-DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=fullstack_auth
 DB_PORT=5432
+DB_NAME=fullstack_auth
+DB_USER=postgres
+DB_PASSWORD=yourpassword
 
-# JWT Secret
-JWT_SECRET=your_super_secret_jwt_key_here_change_in_production
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-here-make-it-long-and-random
 
 # Server Configuration
 PORT=5000
 NODE_ENV=development
 ```
 
-### 3. Database Setup
-
-1. Create a PostgreSQL database named `fullstack_auth`
-2. Run the database setup script:
-```bash
-psql -U postgres -d fullstack_auth -f ../database_setup.sql
-```
-
 ### 4. Frontend Setup
 
 ```bash
-cd ../frontend
+# Navigate to frontend directory (from project root)
+cd frontend
+
+# Install dependencies
 npm install
 ```
 
-## 🚀 Running the Application
+### 5. Database Schema Setup
 
-### Start Backend Server
+The application will automatically create tables when you first run it. The database includes:
+
+- **users** table - Stores user authentication and profile data
+- **stores** table - Stores store information and ownership
+- **ratings** table - Stores customer ratings and reviews
+
+**Pre-configured Users:**
+- **1 Admin:** `admin@demo.com`
+- **13 Store Owners:** `owner.tech@techworld.com`, `owner.fashion@fashioncentral.com`, etc.
+- **3 Regular Users:** `test@example.com`, `test@test.com`, `varun@kkk.com`
+- **All Passwords:** `Password123!`
+
+## 🏃‍♂️ Running the Application
+
+### Option 1: Using Batch Files (Windows)
+
 ```bash
-cd backend
-npm run dev
-# Server runs on http://localhost:5000
+# Start backend (from project root)
+start-backend.bat
+
+# Start frontend (from project root)  
+start-frontend.bat
 ```
 
-### Start Frontend Development Server
+### Option 2: Manual Commands
+
+#### Terminal 1 - Backend Server:
+```bash
+cd backend
+npm start
+```
+
+#### Terminal 2 - Frontend Server:
 ```bash
 cd frontend
 npm start
-# App runs on http://localhost:3000
 ```
 
-## 📝 API Endpoints
-
-### Authentication Routes
-
-#### POST /auth/signup
-Register a new user
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "password": "Password123!",
-  "role": "user" // or "store_owner"
-}
-```
-
-#### POST /auth/login
-Authenticate user
-```json
-{
-  "email": "john@example.com",
-  "password": "Password123!"
-}
-```
-
-## 🎯 Demo Accounts
-
-The application comes with pre-configured demo accounts:
-
-| Role | Email | Password | Access |
-|------|-------|----------|---------|
-| Admin | admin@demo.com | Password123! | Full platform management |
-| Store Owner | store@demo.com | Password123! | Store management dashboard |
-| User | user@demo.com | Password123! | User dashboard and store rating |
-
-## 🔐 Security Features
-
-### Password Requirements
-- Minimum 8 characters
-- At least one lowercase letter
-- At least one uppercase letter
-- At least one number
-- At least one special character
-
-### Authentication
-- JWT tokens with 24-hour expiration
-- Secure password hashing with bcryptjs
-- Protected routes with role verification
-
-### Validation
-- Server-side validation using Joi
-- Client-side form validation
-- Email format validation
-- Password strength requirements
-
-## 🎨 Frontend Structure
-
-```
-frontend/src/
-├── components/
-│   ├── Login.js          # Login form component
-│   ├── Signup.js         # Registration form component
-│   └── Dashboard.js      # Role-based dashboard
-├── services/
-│   └── authService.js    # API communication service
-├── utils/
-│   └── api.js           # API configuration
-├── App.js               # Main app with routing
-└── index.js             # Entry point
-```
-
-## 🔧 Backend Structure
-
-```
-backend/src/
-├── config/
-│   └── database.js      # Database configuration
-├── controllers/
-│   ├── authController.js # Authentication logic
-│   └── userController.js # User management
-├── middleware/
-│   └── authMiddleware.js # JWT verification
-├── models/
-│   └── User.js          # User data model
-├── routes/
-│   ├── auth.js          # Authentication routes
-│   └── users.js         # User routes
-├── utils/
-│   └── validation.js    # Input validation schemas
-└── app.js               # Express app configuration
-```
-
-## 🔄 User Flow
-
-### Registration Flow
-1. User fills out signup form with role selection
-2. Frontend validates input (email format, password strength)
-3. Backend validates data using Joi schemas
-4. Password is hashed with bcryptjs
-5. User is stored in PostgreSQL database
-6. JWT token is generated and returned
-7. User is redirected to appropriate dashboard
-
-### Login Flow
-1. User enters email and password
-2. Backend verifies credentials
-3. JWT token is generated on successful login
-4. Token is stored in localStorage
-5. User is redirected based on their role:
-   - `admin` → Admin Dashboard
-   - `store_owner` → Store Owner Dashboard
-   - `user` → User Dashboard
-
-### Route Protection
-- Public routes redirect authenticated users to their dashboard
-- Protected routes verify JWT token
-- Role-based routes check user permissions
-- Invalid/expired tokens redirect to login
-
-## 🛡️ Admin Management
-
-Admins cannot be created through the signup process for security reasons. To create an admin user:
-
-1. **Database Method** (Recommended):
-```sql
-INSERT INTO users (name, email, password, role, is_verified)
-VALUES ('Admin Name', 'admin@example.com', '<hashed_password>', 'admin', true);
-```
-
-2. **Application Method**:
-Create a user normally, then update their role in the database.
-
-## 🧪 Testing
-
-### Backend Testing
-```bash
-cd backend
-npm test
-```
-
-### Frontend Testing
+#### For Node.js compatibility issues:
 ```bash
 cd frontend
-npm test
+set NODE_OPTIONS=--openssl-legacy-provider
+npm start
 ```
+
+## 🌐 Access the Application
+
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:5000
+- **Health Check:** http://localhost:5000/health
+
+## 👤 Login Credentials
+
+### Admin Account
+- **Email:** `admin@demo.com`
+- **Password:** `Password123!`
+- **Role:** Full system access
+
+### Store Owner Accounts (13 Individual Owners)
+- **Tech World Electronics:** `owner.tech@techworld.com`
+- **Fashion Central:** `owner.fashion@fashioncentral.com`
+- **Book Haven:** `owner.books@bookhaven.com`
+- **Food Paradise:** `owner.food@foodparadise.com`
+- **Sports Zone:** `owner.sports@sportszone.com`
+- **Home & Garden:** `owner.home@homeandgarden.com`
+- **Beauty Corner:** `owner.beauty@beautycorner.com`
+- **Toy Land:** `owner.toys@toyland.com`
+- **Music Store:** `owner.music@musicstore.com`
+- **Pet Paradise:** `owner.pets@petparadise.com`
+- **Coffee Shop:** `owner.coffee@coffeeshop.com`
+- **Fitness Center:** `owner.fitness@fitnesscenter.com`
+- **Electronics Plus:** `owner.electronics@electronicsplus.com`
+- **All Passwords:** `Password123!`
+
+### Regular User Accounts
+- **User 1:** `test@example.com` / `Password123!`
+- **User 2:** `test@test.com` / `Password123!`
+- **User 3:** `varun@kkk.com` / `Password123!`
+
+## 📁 Project Structure
+
+```
+FullStackRating/
+├── 📁 backend/
+│   ├── 📁 src/
+│   │   ├── 📁 config/          # Database configuration
+│   │   ├── 📁 controllers/     # Business logic
+│   │   ├── 📁 middleware/      # Authentication middleware
+│   │   ├── 📁 models/          # Database models
+│   │   ├── 📁 routes/          # API routes
+│   │   ├── 📁 utils/           # Utility functions
+│   │   └── 📄 app.js           # Main application file
+│   ├── 📄 package.json
+│   └── 📄 .env                 # Environment variables
+├── 📁 frontend/
+│   ├── 📁 public/
+│   ├── 📁 src/
+│   │   ├── 📁 components/      # React components
+│   │   │   └── 📁 dashboards/  # Role-specific dashboards
+│   │   ├── 📁 services/        # API services
+│   │   └── 📁 utils/           # Utility functions
+│   └── 📄 package.json
+├── 📄 README.md
+├── 📄 database_setup.sql       # Database schema
+└── 📄 .gitignore
+```
+
+## 🔧 API Endpoints
+
+### Authentication
+- `POST /api/auth/login` - User login
+- `POST /api/auth/register` - User registration
+- `PUT /api/auth/update-password` - Password update
+
+### Users
+- `GET /api/users` - Get all users (Admin only)
+- `GET /api/users/profile` - Get user profile
+
+### Stores
+- `GET /api/stores` - Get all stores
+- `GET /api/stores/my-store` - Get store for logged-in owner
+- `POST /api/stores` - Create new store (Admin only)
+
+### Ratings
+- `GET /api/ratings` - Get all ratings
+- `GET /api/ratings/my-store-ratings` - Get ratings for owner's store
+- `POST /api/ratings` - Submit new rating
+
+## 🛠 Troubleshooting
+
+### Common Issues & Solutions
+
+#### 1. Backend won't start
+```bash
+# Check if PostgreSQL is running
+# Windows: Check Services or Task Manager
+# Make sure port 5432 is not blocked
+
+# Verify database connection
+psql -U postgres -d fullstack_auth
+```
+
+#### 2. Frontend build errors
+```bash
+# Clear npm cache
+npm cache clean --force
+
+# Delete node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+
+# Use legacy OpenSSL provider
+set NODE_OPTIONS=--openssl-legacy-provider
+```
+
+#### 3. Database connection errors
+- Verify PostgreSQL is running on port 5432
+- Check `.env` file credentials match your PostgreSQL setup
+- Ensure `fullstack_auth` database exists
+
+#### 4. Port already in use
+```bash
+# Find and kill process using port 5000
+netstat -ano | findstr :5000
+taskkill /PID <PID_NUMBER> /F
+
+# Or use different port in .env file
+PORT=5001
+```
+
+## 🔒 Security Features
+
+- **JWT Token Authentication** with secure secret
+- **Password Hashing** using bcrypt
+- **Role-based Authorization** middleware
+- **Input Validation** for all API endpoints
+- **CORS Configuration** for secure cross-origin requests
+- **Environment Variables** for sensitive data
 
 ## 🚀 Deployment
 
-### Backend Deployment
-1. Set production environment variables
-2. Use a production PostgreSQL database
-3. Deploy to platforms like Heroku, Railway, or DigitalOcean
+### Heroku Deployment
+1. Create Heroku app: `heroku create your-app-name`
+2. Add PostgreSQL addon: `heroku addons:create heroku-postgresql:hobby-dev`
+3. Set environment variables: `heroku config:set JWT_SECRET=your-secret`
+4. Deploy: `git push heroku main`
 
-### Frontend Deployment
-1. Build the production version:
-```bash
-npm run build
-```
-2. Deploy to platforms like Netlify, Vercel, or AWS S3
-
-### Environment Variables for Production
-```env
-NODE_ENV=production
-JWT_SECRET=<secure-random-string>
-DB_HOST=<production-db-host>
-DB_USER=<production-db-user>
-DB_PASSWORD=<production-db-password>
-DB_NAME=<production-db-name>
-```
+### Vercel/Netlify (Frontend only)
+1. Build frontend: `npm run build`
+2. Deploy `build` folder to hosting platform
+3. Update API URLs to point to deployed backend
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+1. **Fork the repository**
+2. **Create feature branch:** `git checkout -b feature/AmazingFeature`
+3. **Commit changes:** `git commit -m 'Add some AmazingFeature'`
+4. **Push to branch:** `git push origin feature/AmazingFeature`
+5. **Open Pull Request**
 
-## 📄 License
+## 📝 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🆘 Troubleshooting
+## 👨‍💻 Author
 
-### Common Issues
+**Varun Kumar**
+- GitHub: [@varunkumarcs22055](https://github.com/varunkumarcs22055)
+- Email: varunkumarcs22055@gmail.com
 
-**Database Connection Error**
-- Verify PostgreSQL is running
-- Check database credentials in `.env`
-- Ensure database exists
+## 🙏 Acknowledgments
 
-**JWT Token Invalid**
-- Check JWT_SECRET in backend `.env`
-- Verify token is being sent with requests
-- Check token expiration
+- Express.js for the robust backend framework
+- React for the dynamic frontend
+- PostgreSQL for reliable data storage
+- JWT for secure authentication
+- All open-source contributors
 
-**CORS Issues**
-- Verify frontend URL in backend CORS configuration
-- Check if both servers are running
+---
 
-**Build Errors**
-- Run `npm install` in both directories
-- Check Node.js version compatibility
-- Clear node_modules and reinstall if needed
-
-## 🔗 Additional Resources
-
-- [Express.js Documentation](https://expressjs.com/)
-- [React Documentation](https://reactjs.org/)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [JWT.io](https://jwt.io/) - JWT token debugger
-```
-
-## Setup Instructions
-
-### Backend
-
-1. Navigate to the `backend` directory:
-   ```
-   cd backend
-   ```
-
-2. Install the dependencies:
-   ```
-   npm install
-   ```
-
-3. Create a `.env` file in the `backend` directory and add your database connection details and JWT secret:
-   ```
-   DATABASE_URL=your_database_url
-   JWT_SECRET=your_jwt_secret
-   ```
-
-4. Start the backend server:
-   ```
-   npm start
-   ```
-
-### Frontend
-
-1. Navigate to the `frontend` directory:
-   ```
-   cd frontend
-   ```
-
-2. Install the dependencies:
-   ```
-   npm install
-   ```
-
-3. Start the frontend application:
-   ```
-   npm start
-   ```
-
-## Usage
-
-- Access the frontend application in your browser at `http://localhost:3000`.
-- Use the signup page to create a new account and the login page to authenticate.
-
-## Contributing
-
-Feel free to fork the repository and submit pull requests for any improvements or features you would like to add.
+⭐ **Star this repository if you found it helpful!** ⭐
